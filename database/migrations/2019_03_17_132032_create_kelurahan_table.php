@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateKelurahanTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('kelurahan', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->unsignedInteger('kecamatan_id');
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->index('kecamatan_id');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        // Schema::create('kelurahan', function (Blueprint $table) {
+        //     $table->dropForeign(['kecamatan_id']);
+        // });
+        
+        Schema::dropIfExists('kelurahan');
+    }
+}
