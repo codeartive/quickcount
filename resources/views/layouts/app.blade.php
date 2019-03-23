@@ -20,7 +20,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="{{asset('assets/css/cs-skin-elastic.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/lib/datatable/dataTables.bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/select2/css/select2.min.css')}}">
+
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
     <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
@@ -74,30 +77,20 @@
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <div class="col col-md-12">
-                        <div align="center" style="margin-top: 20px;margin-bottom:20px">
-                            <img class="user-avatar rounded-circle" width="100" src="images/admin.jpg" alt="User Avatar"><br>
-                            <strong>{{Auth::user()->name}}</strong>
-                        </div>
-                    </div>
-
+                    <li class="menu-title">Dashboard</li>
                     <li class="active">
                         <a href="{{route('dashboard')}}"><i class="menu-icon fa fa-pie-chart"></i>Dashboard </a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Master Data</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-id-badge"></i><a href="#">Kecamatan</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="#">Kelurahan</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="#">Rukun Warga</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="#">Rukun Tetangga</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="#">TPS</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="#">Partai</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="#">Calon Legislatif</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#"><i class="menu-icon fa fa-edit"></i>Entry Vote Data</a></li>
-                    <li><a href="#"><i class="menu-icon fa fa-power-off"></i>Logout</a></li>
+                    <li class="menu-title">Master Data</li>
+                    <li><a href="{{route('view.kecamatan')}}"><i class="menu-icon fa fa-id-card-o"></i>Kecamatan</a></li>
+                    <li><a href="{{route('view.kelurahan')}}"><i class="menu-icon fa fa-id-badge"></i>Kelurahan</a></li>
+                    <li><a href="{{route('view.rw')}}"><i class="menu-icon fa fa-id-badge"></i>Rukun Warga</a></li>
+                    <li><a href="{{route('view.rt')}}"><i class="menu-icon fa fa-id-badge"></i>Rukun Tetangga</a></li>
+                    <li><a href="{{route('view.tps')}}"><i class="menu-icon fa fa-id-badge"></i>TPS</a></li>
+                    <li><a href="{{route('view.partai')}}"><i class="menu-icon fa fa-id-badge"></i>Partai</a></li>
+                    <li><a href="{{route('view.calon-legislatif')}}"><i class="menu-icon fa fa-id-badge"></i>Calon Legislatif</a></li>
+                    <li class="menu-title">Voting</li>
+                    <li><a href="{{route('view.voting')}}"><i class="menu-icon fa fa-edit"></i>Entry Vote Data</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -110,13 +103,13 @@
             <div class="top-left">
                 <div class="navbar-header" style="background:#ffef01">
                     <a class="navbar-brand" href="./"><img src="{{asset('images/Logo_Golkar.png')}}" width="25" alt="Logo"><span style="font-size: medium;color: black;margin-left: 20px;"><strong>Quick Count Application</strong></span></a>
-                    <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
-                    {{-- <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a> --}}
+                    <a class="navbar-brand hidden" href="./"><img src="{{asset('images/logo2.png')}}" alt="Logo"></a>
+                    <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
-            {{-- <div class="top-right">
+            <div class="top-right">
                 <div class="header-menu">
-                    <div class="header-left">
+                    {{-- <div class="header-left">
                         <button class="search-trigger"><i class="fa fa-search"></i></button>
                         <div class="form-inline">
                             <form class="search-form">
@@ -188,27 +181,23 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                            <img class="user-avatar rounded-circle" src="{{asset('images/admin.jpg')}}" alt="User Avatar">
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <span class="nav-link"></span>
+                            <span class="nav-link"><strong>{{Auth::user()->name}}</strong></span>
                             <hr style="margin:1px;">
-
-                            <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
-
-                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
 
                             <a class="nav-link" href="#"><i class="fa fa-power-off"></i>Logout</a>
                         </div>
                     </div>
 
                 </div>
-            </div> --}}
+            </div>
         </header>
         <!-- /#header -->
         <!-- Content -->
@@ -222,14 +211,17 @@
             <div class="footer-inner bg-white">
                 <div class="row">
                     <div class="col-sm-6">
-                        Copyright &copy; 2018 Ela Admin
+                        Copyright &copy; 2019 Codeartive
                     </div>
-                    <div class="col-sm-6 text-right">
-                        Designed by <a href="https://colorlib.com">Colorlib</a>
-                    </div>
+                    {{-- <div class="col-sm-6 text-right">
+                        Theme by <a href="https://colorlib.com">Ela</a>
+                    </div> --}}
                 </div>
             </div>
         </footer>
+
+        @yield('modal-area')
+
         <!-- /.site-footer -->
     </div>
     <!-- /#right-panel -->
@@ -240,10 +232,25 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="{{asset('assets/js/main.js')}}"></script>
+    <script src="{{asset('assets/js/sweetalert.min.js')}}"></script>
 
     <!--  Chart js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
+    <script src="{{asset('assets/js/chartjs-plugin-labels.min.js')}}"></script>
 
+    <!-- Data Table -->
+    <script src="{{asset('assets/js/lib/data-table/datatables.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/buttons.bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/jszip.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/vfs_fonts.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/buttons.print.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/buttons.colVis.min.js')}}"></script>
+    <script src="{{asset('assets/js/init/datatables-init.js')}}"></script>
+
+    <script src="{{asset('assets/select2/js/select2.min.js')}}"></script>
     <!--Chartist Chart-->
     {{-- <script src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script> --}}
     {{-- <script src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"></script> --}}
@@ -262,6 +269,21 @@
 
     <!--Local Stuff-->
     @yield('additional-js')
+
+    @if (session('message'))
+        <script type="text/javascript">
+            $(document).ready(function(){
+                var params = {!! json_encode(session('message')) !!}
+                swal(params);
+                // swal({
+                //     title: "Good job!",
+                //     text: "You clicked the button!",
+                //     icon: "success",
+                //     button: "OK",
+                // });
+            })
+        </script>
+    @endif
 
     
 </body>
