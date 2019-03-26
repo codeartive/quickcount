@@ -45,9 +45,12 @@ class VotingController extends Controller
         $voting = new Voting;
         $voting->tps_id = $request->tps;
         if(isset($request->photo)){
-            $uploadedFile = $request->file('photo')->store('public/files/voting');
+
+            // Storage::disk('public_uploads')->put($path, $file_content)
+            // $uploadedFile = $request->file('photo')->store('public/files/voting');
+            $uploadedFile = $request->photo->store('images','public_uploads');
             $getFileName=explode('/',$uploadedFile);
-            $voting->photo = $getFileName[3];
+            $voting->photo = $getFileName[1];
         }
         $voting->save();
 

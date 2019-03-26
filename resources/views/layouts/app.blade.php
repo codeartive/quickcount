@@ -9,6 +9,8 @@
     <title>Quick Count Application</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
     <link rel="shortcut icon" href="{{asset('images/favicon.png')}}">
@@ -68,6 +70,22 @@
         #cellPaiChart{
             height: 160px;
         }
+        .active{
+            background:#ffef01 !important;
+            color: black !important;
+            text-decoration: none !important;
+        }
+        .active a{
+            color: black !important;
+            text-decoration: none !important;    
+        }
+        .active a:hover{
+            color: black !important;
+            text-decoration: none !important;   
+        }
+        .active a .menu-icon{
+            color: black !important;
+        }
 
     </style>
 
@@ -81,18 +99,18 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="menu-title">Dashboard</li>
-                    <li class="active">
+                    <li class="{{Request::url()==route('dashboard') ? 'active' : ''}}">
                         <a href="{{route('dashboard')}}"><i class="menu-icon fa fa-pie-chart"></i>Dashboard </a>
                     </li>
                     <li class="menu-title">Master Data</li>
-                    <li><a href="{{route('view.kecamatan')}}"><i class="menu-icon fa fa-building"></i>Kecamatan</a></li>
-                    <li><a href="{{route('view.kelurahan')}}"><i class="menu-icon fa fa-institution"></i>Kelurahan</a></li>
-                    <li><a href="{{route('view.rw')}}"><i class="menu-icon fa fa-home"></i>Rukun Warga</a></li>
+                    <li class="{{Request::url()==route('view.kecamatan') ? 'active' : ''}}"><a href="{{route('view.kecamatan')}}"><i class="menu-icon fa fa-building"></i>Kecamatan</a></li>
+                    <li class="{{Request::url()==route('view.kelurahan') ? 'active' : ''}}"><a href="{{route('view.kelurahan')}}"><i class="menu-icon fa fa-institution"></i>Kelurahan</a></li>
+                    <li class="{{Request::url()==route('view.rw') ? 'active' : ''}}"><a href="{{route('view.rw')}}"><i class="menu-icon fa fa-home"></i>Rukun Warga</a></li>
                     {{-- <li><a href="{{route('view.rt')}}"><i class="menu-icon fa fa-id-badge"></i>Rukun Tetangga</a></li> --}}
-                    <li><a href="{{route('view.tps')}}"><i class="menu-icon fa fa-pencil"></i>TPS</a></li>
-                    <li><a href="{{route('view.partai')}}"><i class="menu-icon fa fa-flag"></i>Partai</a></li>
-                    <li><a href="{{route('view.calon-legislatif')}}"><i class="menu-icon fa fa-users"></i>Calon Legislatif</a></li>
-                    <li><a href="{{route('view.voting')}}"><i class="menu-icon fa fa-edit"></i>Upload Hasil Pemilihan</a></li>
+                    <li class="{{Request::url()==route('view.tps') ? 'active' : ''}}"><a href="{{route('view.tps')}}"><i class="menu-icon fa fa-pencil"></i>TPS</a></li>
+                    <li class="{{Request::url()==route('view.partai') ? 'active' : ''}}"><a href="{{route('view.partai')}}"><i class="menu-icon fa fa-flag"></i>Partai</a></li>
+                    <li class="{{Request::url()==route('view.calon-legislatif') ? 'active' : ''}}"><a href="{{route('view.calon-legislatif')}}"><i class="menu-icon fa fa-users"></i>Calon Legislatif</a></li>
+                    <li class="{{Request::url()==route('view.voting') ? 'active' : ''}}"><a href="{{route('view.voting')}}"><i class="menu-icon fa fa-edit"></i>Upload Hasil Pemilihan</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
