@@ -15,4 +15,9 @@ class RukunTetangga extends Model
     public function rukun_warga(){
     	return $this->belongsTo(RukunWarga::class);
     }
+
+    public function tps()
+	{
+		return $this->belongsToMany(TPS::class, 'tps_coverage', 'tps_id', 'rukun_tetangga_id');
+	}
 }

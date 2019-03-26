@@ -13,6 +13,6 @@ class Partai extends Model
     protected $guarded = [];
 
     public function calon_legislatif(){
-    	return $this->hasMany(CalonLegislatif::class);
+    	return $this->hasMany(CalonLegislatif::class,'partai_id');
     }
 }

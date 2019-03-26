@@ -22,7 +22,6 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 	
 	Route::prefix('master-data')->group(function () {
-		
 		Route::prefix('partai')->group(function () {
 			Route::get('/', 'PartaiController@index')->name('view.partai');
 			Route::post('/add', 'PartaiController@store')->name('add.partai');
@@ -48,6 +47,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::prefix('kelurahan')->group(function () {
 			Route::get('/', 'KelurahanController@index')->name('view.kelurahan');
 			Route::post('/add', 'KelurahanController@store')->name('add.kelurahan');
+			Route::get('/edit/{id}', 'KelurahanController@edit')->name('update.kelurahan');
 			Route::post('/edit/{id}', 'KelurahanController@update')->name('update.kelurahan');
 			Route::get('/delete/{id}', 'KelurahanController@destroy')->name('delete.kelurahan');
 		});
@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::prefix('rw')->group(function () {
 			Route::get('/', 'RukunWargaController@index')->name('view.rw');
 			Route::post('/add', 'RukunWargaController@store')->name('add.rw');
+			Route::get('/edit/{id}', 'RukunWargaController@edit')->name('update.rw');
 			Route::post('/edit/{id}', 'RukunWargaController@update')->name('update.rw');
 			Route::get('/delete/{id}', 'RukunWargaController@destroy')->name('delete.rw');
 		});
@@ -69,6 +70,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::prefix('tps')->group(function () {
 			Route::get('/', 'TPSController@index')->name('view.tps');
 			Route::post('/add', 'TPSController@store')->name('add.tps');
+			Route::get('/edit/{id}', 'TPSController@edit')->name('update.tps');
 			Route::post('/edit/{id}', 'TPSController@update')->name('update.tps');
 			Route::get('/delete/{id}', 'TPSController@destroy')->name('delete.tps');
 		});
@@ -79,6 +81,13 @@ Route::group(['middleware' => ['auth']], function () {
 			Route::post('/edit/{id}', 'VotingController@update')->name('update.voting');
 			Route::get('/delete/{id}', 'VotingController@destroy')->name('delete.voting');
 		});
+	});
 
+	Route::prefix('utilities')->group(function () {
+		Route::get('/kecamatan','UtilitiesController@getDataKecamatan')->name('data.kecamatan');
+		Route::get('/kelurahan/{parent_id?}','UtilitiesController@getDataKelurahan')->name('data.kelurahan');
+		Route::get('/rukun-warga/{parent_id?}','UtilitiesController@getDataRukunWarga')->name('data.rukun-warga');
+		Route::get('/rukun-tetangga/{parent_id?}','UtilitiesController@getDataRukunTetangga')->name('data.rukun-tetangga');
+		Route::get('/tps/{parent_id?}','UtilitiesController@getDataTPS')->name('data.tps');
 	});
 });

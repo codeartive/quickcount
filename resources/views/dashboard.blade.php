@@ -11,43 +11,48 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <select class="form-control" id="kecamatan" name="states">
                                         <option></option>
                                         <option value="AL">Alabama</option>
                                         <option value="WY">Wyoming</option>
                                     </select>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <select class="form-control" id="kelurahan" name="states">
                                         <option></option>
                                         <option value="AL">Alabama</option>
                                         <option value="WY">Wyoming</option>
                                     </select>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <select class="form-control" id="rukun_warga" name="states">
                                         <option></option>
                                         <option value="AL">Alabama</option>
                                         <option value="WY">Wyoming</option>
                                     </select>
                                 </div>
-                                <div class="col-md-2">
+                                {{-- <div class="col-md-2">
                                     <select class="form-control" id="rukun_tetangga" name="states">
                                         <option></option>
                                         <option value="AL">Alabama</option>
                                         <option value="WY">Wyoming</option>
                                     </select>
-                                </div>
-                                <div class="col-md-2">
+                                </div> --}}
+                                <div class="col-md-3">
                                     <select class="form-control" id="tps" name="states">
                                         <option></option>
                                         <option value="AL">Alabama</option>
                                         <option value="WY">Wyoming</option>
                                     </select>
                                 </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-primary btn-sm" style="width:100%"><i class="fa fa-filter"></i>&nbsp;Filter Data</button>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="btn-group" style="width:100%">
+                                        <button class="btn btn-primary btn-sm" style="width:100%"><i class="fa fa-filter"></i>&nbsp;Filter Data</button>
+                                        <button class="btn btn-danger btn-sm" style="width:100%"><i class="fa fa-refresh"></i>&nbsp;Clear Filter</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

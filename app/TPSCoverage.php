@@ -16,7 +16,11 @@ class TPSCoverage extends Model
     	return $this->belongsTo(TPS::class);
     }
 
-    public function rukun_tetangga(){
-    	return $this->belongsTo(RukunTetangga::class);
+    // public function rukun_tetangga(){
+    // 	return $this->belongsTo(RukunTetangga::class);
+    // }
+
+    public function rukun_warga(){
+    	return $this->belongsTo(RukunWarga::class);
     }
 }
