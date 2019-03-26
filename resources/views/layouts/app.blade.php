@@ -22,7 +22,10 @@
     <link rel="stylesheet" href="{{asset('assets/css/cs-skin-elastic.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/lib/datatable/dataTables.bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
     <link rel="stylesheet" href="{{asset('assets/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/fileinput.min.css')}}">
+
 
     <script type="text/javascript" src="{{asset('assets/js/vendor/html5shiv.min.js')}}"></script>
     <link href="{{asset('assets/css/vendor/chartist.min.css')}}" rel="stylesheet">
@@ -89,8 +92,7 @@
                     <li><a href="{{route('view.tps')}}"><i class="menu-icon fa fa-pencil"></i>TPS</a></li>
                     <li><a href="{{route('view.partai')}}"><i class="menu-icon fa fa-flag"></i>Partai</a></li>
                     <li><a href="{{route('view.calon-legislatif')}}"><i class="menu-icon fa fa-users"></i>Calon Legislatif</a></li>
-                    <li class="menu-title">Voting</li>
-                    <li><a href="{{route('view.voting')}}"><i class="menu-icon fa fa-edit"></i>Entry Vote Data</a></li>
+                    <li><a href="{{route('view.voting')}}"><i class="menu-icon fa fa-edit"></i>Upload Hasil Pemilihan</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -251,6 +253,7 @@
     <script src="{{asset('assets/js/init/datatables-init.js')}}"></script>
 
     <script src="{{asset('assets/select2/js/select2.min.js')}}"></script>
+    <script src="{{asset('assets/js/fileinput.min.js')}}"></script>
     <!--Chartist Chart-->
     {{-- <script src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script> --}}
     {{-- <script src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"></script> --}}

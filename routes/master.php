@@ -77,9 +77,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::prefix('voting')->group(function () {
 			Route::get('/', 'VotingController@index')->name('view.voting');
+			Route::get('/add', 'VotingController@create')->name('add.voting');
 			Route::post('/add', 'VotingController@store')->name('add.voting');
-			Route::post('/edit/{id}', 'VotingController@update')->name('update.voting');
-			Route::get('/delete/{id}', 'VotingController@destroy')->name('delete.voting');
 		});
 	});
 
@@ -89,5 +88,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/rukun-warga/{parent_id?}','UtilitiesController@getDataRukunWarga')->name('data.rukun-warga');
 		Route::get('/rukun-tetangga/{parent_id?}','UtilitiesController@getDataRukunTetangga')->name('data.rukun-tetangga');
 		Route::get('/tps/{parent_id?}','UtilitiesController@getDataTPS')->name('data.tps');
+		Route::get('/tps/filtered/{parent_id?}','UtilitiesController@getDataTPSFiltered')->name('data.tps.filtered');
+		Route::post('/voting','UtilitiesController@getDataVoting')->name('data.voting');
 	});
 });

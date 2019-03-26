@@ -12,9 +12,9 @@ class TPS extends Model
     protected $table = 'tps';
     protected $guarded = [];
 
-    // public function tps_coverage(){
-    // 	return $this->hasMany(TPSCoverage::class,'tps_id');
-    // }
+    public function tps_coverage(){
+    	return $this->hasMany(TPSCoverage::class,'tps_id');
+    }
 
  //    public function rukun_tetangga()
 	// {
@@ -34,6 +34,11 @@ class TPS extends Model
     public function getRukunWarga()
     {
         return $this->rukun_warga()->first() ?? null;
+    }
+
+    public function getStatus()
+    {
+        return Voting::where('tps_id',$this->id)->get()->isEmpty() ? ['class' => 'danger','message' => 'Data belum di upload'] : ['class' => 'success','message' => 'Data sudah di upload'];
     }
 
     public function voting()

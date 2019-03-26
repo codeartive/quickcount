@@ -161,7 +161,7 @@ class TPSController extends Controller
 
         return redirect()->route('view.tps')->with('message',[
             'title' => "Success!",
-            'text' => "Data rukun warga berhasil dihapus!",
+            'text' => "Data tps berhasil dihapus!",
             'icon' => "success",
             'button' => "OK",
         ]);

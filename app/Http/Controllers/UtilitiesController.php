@@ -7,6 +7,7 @@ use App\Kecamatan;
 use App\Kelurahan;
 use App\RukunWarga;
 use App\TPS;
+use App\Voting;
 
 class UtilitiesController extends Controller
 {
@@ -68,8 +69,22 @@ class UtilitiesController extends Controller
     public function getDataTPS($parent_id=null)
     {
         $data = TPS::when($parent_id!=null,function($query) use($parent_id){
-            return $query->where('rukun_warga_id',$parent_id);
+            return $query->whereHas('tps_coverage',function($coverage) use($parent_id){
+                $coverage->where('rukun_warga_id',$parent_id);  
+            });
         })->get();
+
+        return $this->dataMapping($data);
+    }
+
+    public function getDataTPSFiltered($parent_id=null)
+    {
+        $list_tps_done = Voting::all()->pluck('tps_id');
+        $data = TPS::when($parent_id!=null,function($query) use($parent_id){
+            return $query->whereHas('tps_coverage',function($coverage) use($parent_id){
+                $coverage->where('rukun_warga_id',$parent_id);  
+            });
+        })->whereNotIn('id',$list_tps_done)->get();
 
         return $this->dataMapping($data);
     }
@@ -82,6 +97,16 @@ class UtilitiesController extends Controller
 
     public function getDataCalonLegislatif($parent_id=null)
     {
+        $data = CalonLegislatif::when($parent_id!=null,function($query) use($parent_id){
+            return $query->where('partai_id',$parent_id);
+        })->get();
+
+        return $this->dataMapping($data);
+    }
+
+    public function getDataVoting(Request $request)
+    {
+        return $request->all();
         $data = CalonLegislatif::when($parent_id!=null,function($query) use($parent_id){
             return $query->where('partai_id',$parent_id);
         })->get();

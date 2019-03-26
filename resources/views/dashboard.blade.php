@@ -64,7 +64,7 @@
         </div><!-- /# column -->
     </div>
     <!--  Traffic  -->
-    <div class="row">
+    <div class="row piechartDiv">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
@@ -82,115 +82,6 @@
         </div><!-- /# column -->
     </div>
     <!--  /Traffic -->
-                    
-                    
-    <div class="clearfix"></div>
-    <!-- Orders -->
-    <div class="orders">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="box-title">Orders </h4>
-                    </div>
-                    <div class="card-body--">
-                        <div class="table-stats order-table ov-h">
-                            <table class="table ">
-                                <thead>
-                                    <tr>
-                                        <th class="serial">#</th>
-                                        <th class="avatar">Avatar</th>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Product</th>
-                                        <th>Quantity</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="serial">1.</td>
-                                        <td class="avatar">
-                                            <div class="round-img">
-                                                <a href="#"><img class="rounded-circle" src="images/avatar/1.jpg" alt=""></a>
-                                            </div>
-                                        </td>
-                                        <td> #5469 </td>
-                                        <td>  <span class="name">Louis Stanley</span> </td>
-                                        <td> <span class="product">iMax</span> </td>
-                                        <td><span class="count">231</span></td>
-                                        <td>
-                                            <span class="badge badge-complete">Complete</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="serial">2.</td>
-                                        <td class="avatar">
-                                            <div class="round-img">
-                                                <a href="#"><img class="rounded-circle" src="images/avatar/2.jpg" alt=""></a>
-                                            </div>
-                                        </td>
-                                        <td> #5468 </td>
-                                        <td>  <span class="name">Gregory Dixon</span> </td>
-                                        <td> <span class="product">iPad</span> </td>
-                                        <td><span class="count">250</span></td>
-                                        <td>
-                                            <span class="badge badge-complete">Complete</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="serial">3.</td>
-                                        <td class="avatar">
-                                            <div class="round-img">
-                                                <a href="#"><img class="rounded-circle" src="images/avatar/3.jpg" alt=""></a>
-                                            </div>
-                                        </td>
-                                        <td> #5467 </td>
-                                        <td>  <span class="name">Catherine Dixon</span> </td>
-                                        <td> <span class="product">SSD</span> </td>
-                                        <td><span class="count">250</span></td>
-                                        <td>
-                                            <span class="badge badge-complete">Complete</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="serial">4.</td>
-                                        <td class="avatar">
-                                            <div class="round-img">
-                                                <a href="#"><img class="rounded-circle" src="images/avatar/4.jpg" alt=""></a>
-                                            </div>
-                                        </td>
-                                        <td> #5466 </td>
-                                        <td>  <span class="name">Mary Silva</span> </td>
-                                        <td> <span class="product">Magic Mouse</span> </td>
-                                        <td><span class="count">250</span></td>
-                                        <td>
-                                            <span class="badge badge-pending">Pending</span>
-                                        </td>
-                                    </tr>
-                                    <tr class=" pb-0">
-                                        <td class="serial">5.</td>
-                                        <td class="avatar pb-0">
-                                            <div class="round-img">
-                                                <a href="#"><img class="rounded-circle" src="images/avatar/6.jpg" alt=""></a>
-                                            </div>
-                                        </td>
-                                        <td> #5465 </td>
-                                        <td>  <span class="name">Johnny Stephens</span> </td>
-                                        <td> <span class="product">Monitor</span> </td>
-                                        <td><span class="count">250</span></td>
-                                        <td>
-                                            <span class="badge badge-complete">Complete</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div> <!-- /.table-stats -->
-                    </div>
-                </div> <!-- /.card -->
-            </div>  <!-- /.col-lg-8 -->
-        </div>
-    </div>
     <!-- /.orders -->
 </div>
 <!-- .animated -->
@@ -198,32 +89,9 @@
 
 @section('additional-js')
 <script>
+    var myChart = null;
     jQuery(document).ready(function($) {
         "use strict";
-        
-        // Traffic Chart using chartist
-        if ($('#traffic-chart').length) {
-        	var myChart = new Chart(document.getElementById("traffic-chart"),{
-        		type:"pie",
-        		data:{
-        			"labels":[1,2,3,4,5,6,7,8,9,10],
-        			"datasets":[{
-        				"label":"My First Dataset",
-        				"data":[30,50,70,20,86,72,96,28,19,42],
-        				"backgroundColor":["rgb(255, 99, 132)","rgb(54, 162, 235)","rgb(255, 205, 86)"]
-        			}]
-        		},
-                options:{
-                    legend: {
-                        position: "right",
-                    },
-                    labels: {
-                        render: 'percentage',
-                    }
-                }
-            });
-        }
-        // Traffic Chart using chartist End
         initSelect2();
     });
 
@@ -249,6 +117,104 @@
             allowClear: true
         });
 
+    }
+
+    function getDataPieChart(params){
+        function getTPS(id='') {
+            $.ajax({
+                url: "{{ url('utilities/voting') }}",
+                method: "POST",
+                data: params,
+                dataType: 'JSON',
+                success: function(data) {
+                    console.log(data);
+                    $('#tps').empty();
+                    myChart = new Chart(document.getElementById("traffic-chart"),{
+                        type:"pie",
+                        data:{
+                            "labels":[1,2,3,4,5,6,7,8,9,10],
+                            "datasets":[{
+                                "label":"My First Dataset",
+                                "data":[30,50,70,20,86,72,96,28,19,42],
+                                "backgroundColor":["rgb(255, 99, 132)","rgb(54, 162, 235)","rgb(255, 205, 86)"]
+                            }]
+                        },
+                        options:{
+                            legend: {
+                                position: "right",
+                            },
+                            labels: {
+                                render: 'percentage',
+                            }
+                        }
+                    });
+                }
+            });
+        }
+        
+    }
+
+    function getKecamatan() {
+        $.ajax({
+            url: "{{ url('utilities/kecamatan') }}",
+            method: "GET",
+            dataType: 'JSON',
+            success: function(data) {
+                $('#kecamatan').empty();
+                $.each( data, function( key, value ) {
+                    var newOption = new Option(value.text, value.id, true, true);
+                    $('#kecamatan').append(newOption).val('').trigger('change');
+                });
+            }
+        });
+    }
+
+    function getKelurahan(id='') {
+        $.ajax({
+            url: "{{ url('utilities/kelurahan') }}"+'/'+id,
+            method: "GET",
+            dataType: 'JSON',
+            success: function(data) {
+                // console.log(data);
+                $('#kelurahan').empty();
+                $.each( data, function( key, value ) {
+                    var newOption = new Option(value.text, value.id, true, true);
+                    $('#kelurahan').append(newOption).val('').trigger('change');
+                });
+            }
+        });
+    }
+
+    function getRukunWarga(id='') {
+        $.ajax({
+            url: "{{ url('utilities/rukun-warga') }}"+'/'+id,
+            method: "GET",
+            dataType: 'JSON',
+            success: function(data) {
+                // console.log(data);
+                $('#rw').empty();
+                $.each( data, function( key, value ) {
+                    var newOption = new Option(value.text, value.id, true, true);
+                    $('#rw').append(newOption).val('').trigger('change');
+                });
+            }
+        });
+    }
+
+    function getTPS(id='') {
+        $.ajax({
+            url: "{{ url('utilities/tps/filtered') }}"+'/'+id,
+            method: "GET",
+            dataType: 'JSON',
+            success: function(data) {
+                // console.log(data);
+                $('#tps').empty();
+                $.each( data, function( key, value ) {
+                    var newOption = new Option(value.text, value.id, true, true);
+                    $('#tps').append(newOption).val('').trigger('change');
+                });
+            }
+        });
     }
 </script>
 @endsection
