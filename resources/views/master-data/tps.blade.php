@@ -22,6 +22,7 @@
                                     <th>RW</th>
                                     <th>TPS</th>
                                     <th>Alamat</th>
+                                    <th>Saksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,6 +37,7 @@
                                         <td>{{implode(', ',json_decode($tps->rukun_warga->pluck('name')))}}</td>
                                         <td>{{$tps->name}}</td>
                                         <td>{{$tps->address ?? "-"}}</td>
+                                        <td>{{$tps->saksi ?? "-"}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -116,6 +118,16 @@
                                     <option></option>
                                 </select>
                             </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="form-control-label">
+                                    Nama Saksi:
+                                </label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" id="saksi" name="saksi" class="form-control" placeholder="Masukkan nama saksi">
+                            </div>
                         </div>
                         {{-- <div class="row">
                             <div class="col-md-3">
@@ -186,6 +198,7 @@
                 console.log(data);
                 $('#name').val(data.tps.name);
                 $('#address').val(data.tps.address);
+                $('#saksi').val(data.tps.saksi);
                 $('#kecamatan').val(data.kecamatan.id).trigger('change');
                 // $('#kecamatan').val(data.kelurahan.kecamatan.id).trigger('select2:select');
                 $('#kelurahan').val(data.kelurahan.id).trigger('change');
@@ -211,6 +224,7 @@
     $('#staticModalAddTPS').on('hidden.bs.modal', function () {
         $('#name').val('');
         $('#address').val('');
+        $('#saksi').val('');
         $('#kecamatan').val('').trigger('change');
         $('#kelurahan').val('').trigger('change');
         $('#rw').val('').trigger('change');

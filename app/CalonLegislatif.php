@@ -15,4 +15,9 @@ class CalonLegislatif extends Model
     public function voting_detail(){
     	return $this->hasMany(VotingDetail::class);
     }
+
+    public function partai()
+    {
+    	return $this->belongsTo(Partai::class);
+    }
 }

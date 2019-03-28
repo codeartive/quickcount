@@ -43,7 +43,7 @@
                                 <div class="col-md-3">
                                     <div class="btn-group" style="width:100%">
                                         <button class="btn btn-primary btn-sm" style="width:100%" onclick="getDataPieChart()"><i class="fa fa-filter"></i>&nbsp;Filter Data</button>
-                                        <button class="btn btn-danger btn-sm" style="width:100%"><i class="fa fa-refresh"></i>&nbsp;Clear Filter</button>
+                                        <button class="btn btn-danger btn-sm" style="width:100%"  onclick="clearFilter()"><i class="fa fa-refresh"></i>&nbsp;Clear Filter</button>
                                     </div>
                                 </div>
                             </div>
@@ -156,36 +156,46 @@
             dataType: 'JSON',
             success: function(data) {
                 console.log(data);
-                // $('#tps').empty();
-                $('.pieDiv').html('<canvas id="pie"></canvas>');
-                myChart = new Chart(document.getElementById("pie").getContext('2d'),{
-                    type:"pie",
-                    data:{
-                        "labels":data.caleg,
-                        "datasets":[{
-                            "label":"My First Dataset",
-                            "data":data.total_suara,
-                            "backgroundColor":data.color
-                        }]
-                    },
-                    options:{
-                        legend: {
-                            position: "right",
+                if(data.result=='empty'){
+                    swal({
+                        title: "Error!",
+                        text: "Hasil pemilihan tidak ditemukan!",
+                        icon: "error",
+                        button: "OK",
+                    });
+                    $('.pieDiv').html('<h5>Data tidak ditemukan</h5>');
+                }else{
+                    // $('#tps').empty();
+                    $('.pieDiv').html('<canvas id="pie"></canvas>');
+                    myChart = new Chart(document.getElementById("pie").getContext('2d'),{
+                        type:"pie",
+                        data:{
+                            "labels":data.caleg,
+                            "datasets":[{
+                                "label":"My First Dataset",
+                                "data":data.total_suara,
+                                "backgroundColor":data.color
+                            }]
                         },
-                        plugins: {
-                            labels: {
-                                render: 'percentage',
-                                fontColor: function (data) {
-                                  var rgb = hexToRgb(data.dataset.backgroundColor[data.index]);
-                                  var threshold = 140;
-                                  var luminance = 0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b;
-                                  return luminance > threshold ? 'black' : 'white';
-                                },
-                                precision: 2
+                        options:{
+                            legend: {
+                                position: "right",
+                            },
+                            plugins: {
+                                labels: {
+                                    render: 'percentage',
+                                    fontColor: function (data) {
+                                      var rgb = hexToRgb(data.dataset.backgroundColor[data.index]);
+                                      var threshold = 140;
+                                      var luminance = 0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b;
+                                      return luminance > threshold ? 'black' : 'white';
+                                    },
+                                    precision: 2
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
     }
@@ -251,6 +261,14 @@
                 });
             }
         });
+    }
+
+    function clearFilter(){
+        $('#kecamatan').val('').trigger('change');
+        $('#kelurahan').val('').trigger('change');
+        $('#rw').val('').trigger('change');
+        $('#tps').val('').trigger('change');
+        getDataPieChart();
     }
 </script>
 @endsection

@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::prefix('partai')->group(function () {
 			Route::get('/', 'PartaiController@index')->name('view.partai');
 			Route::post('/add', 'PartaiController@store')->name('add.partai');
+			Route::get('/edit/{id}', 'PartaiController@edit')->name('update.partai');
 			Route::post('/edit/{id}', 'PartaiController@update')->name('update.partai');
 			Route::get('/delete/{id}', 'PartaiController@destroy')->name('delete.partai');
 		});
@@ -32,6 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::prefix('calon-legislatif')->group(function () {
 			Route::get('/', 'CalonLegislatifController@index')->name('view.calon-legislatif');
 			Route::post('/add', 'CalonLegislatifController@store')->name('add.calon-legislatif');
+			Route::get('/edit/{id}', 'CalonLegislatifController@edit')->name('update.calon-legislatif');
 			Route::post('/edit/{id}', 'CalonLegislatifController@update')->name('update.calon-legislatif');
 			Route::get('/delete/{id}', 'CalonLegislatifController@destroy')->name('delete.calon-legislatif');
 		});
@@ -90,5 +92,6 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/tps/{parent_id?}','UtilitiesController@getDataTPS')->name('data.tps');
 		Route::get('/tps/filtered/{parent_id?}','UtilitiesController@getDataTPSFiltered')->name('data.tps.filtered');
 		Route::post('/voting','UtilitiesController@getDataVoting')->name('data.voting');
+		Route::get('/partai','UtilitiesController@getDataPartai')->name('data.partai');
 	});
 });

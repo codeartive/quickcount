@@ -70,20 +70,20 @@
         #cellPaiChart{
             height: 160px;
         }
-        .active{
+        .navbar .active{
             background:#ffef01 !important;
             color: black !important;
             text-decoration: none !important;
         }
-        .active a{
+        .navbar .active a{
             color: black !important;
             text-decoration: none !important;    
         }
-        .active a:hover{
+        .navbar .active a:hover{
             color: black !important;
             text-decoration: none !important;   
         }
-        .active a .menu-icon{
+        .navbar .active a .menu-icon{
             color: black !important;
         }
 
@@ -102,6 +102,7 @@
                     <li class="{{Request::url()==route('dashboard') ? 'active' : ''}}">
                         <a href="{{route('dashboard')}}"><i class="menu-icon fa fa-pie-chart"></i>Dashboard </a>
                     </li>
+                    @if(Auth::user()->role_id != 3)
                     <li class="menu-title">Master Data</li>
                     <li class="{{Request::url()==route('view.kecamatan') ? 'active' : ''}}"><a href="{{route('view.kecamatan')}}"><i class="menu-icon fa fa-building"></i>Kecamatan</a></li>
                     <li class="{{Request::url()==route('view.kelurahan') ? 'active' : ''}}"><a href="{{route('view.kelurahan')}}"><i class="menu-icon fa fa-institution"></i>Kelurahan</a></li>
@@ -110,6 +111,7 @@
                     <li class="{{Request::url()==route('view.tps') ? 'active' : ''}}"><a href="{{route('view.tps')}}"><i class="menu-icon fa fa-pencil"></i>TPS</a></li>
                     <li class="{{Request::url()==route('view.partai') ? 'active' : ''}}"><a href="{{route('view.partai')}}"><i class="menu-icon fa fa-flag"></i>Partai</a></li>
                     <li class="{{Request::url()==route('view.calon-legislatif') ? 'active' : ''}}"><a href="{{route('view.calon-legislatif')}}"><i class="menu-icon fa fa-users"></i>Calon Legislatif</a></li>
+                    @endif
                     <li class="{{Request::url()==route('view.voting') ? 'active' : ''}}"><a href="{{route('view.voting')}}"><i class="menu-icon fa fa-edit"></i>Upload Hasil Pemilihan</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -211,8 +213,14 @@
                         <div class="user-menu dropdown-menu">
                             <span class="nav-link"><strong>{{Auth::user()->name}}</strong></span>
                             <hr style="margin:1px;">
-
-                            <a class="nav-link" href="#"><i class="fa fa-power-off"></i>Logout</a>
+                            <a class="nav-link" href="{{ url('/logout') }}"
+                                              onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                            <i class="fa fa-power-off"></i> Log Out </a>
+                                            <form id="logout-form" action="{{ url('/logout') }}" method="POST"
+                                                  style="display: none;">
+                                                {{ csrf_field() }}
+                                            </form>
                         </div>
                     </div>
 

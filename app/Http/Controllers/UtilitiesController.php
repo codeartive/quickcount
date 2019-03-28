@@ -9,6 +9,7 @@ use App\RukunWarga;
 use App\TPS;
 use App\Voting;
 use App\VotingDetail;
+use App\Partai;
 use DB;
 
 class UtilitiesController extends Controller
@@ -145,11 +146,7 @@ class UtilitiesController extends Controller
             $iColor += 1;
         }
 
-        return ['caleg' => $caleg,'total_suara' => $total_suara, 'color' => $color];
-    }
-
-    public function rand_color() {
-        return '#' . strtoupper(str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT));
+        return $data->isEmpty() ? ['result' => 'empty'] : ['caleg' => $caleg,'total_suara' => $total_suara, 'color' => $color, 'result' => 'success'];
     }
 
     public function getColorPattern($value){

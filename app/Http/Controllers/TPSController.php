@@ -43,6 +43,7 @@ class TPSController extends Controller
         // $tps->rukun_warga_id = $request->rw;
         $tps->name = $request->name;
         $tps->address = $request->address;
+        $tps->saksi = $request->saksi;
         $tps->save();
 
         foreach ($request->rw as $value) {
@@ -114,6 +115,7 @@ class TPSController extends Controller
         // $tps->rukun_warga_id = $request->kelurahan;
         $tps->name = $request->name;
         $tps->address = $request->address;
+        $tps->saksi = $request->saksi;
         $tps->save();
 
         $delete_coverage = TPSCoverage::where('tps_id',$tps->id)->forceDelete();
